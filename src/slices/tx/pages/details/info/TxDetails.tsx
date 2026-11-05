@@ -26,6 +26,7 @@ import getConfirmationDuration from 'src/slices/tx/utils/get-confirmation-durati
 
 import TxDetailsEden from 'src/features/chain-variants/eden/pages/tx/TxDetailsEden';
 import { getBatchRecipients } from 'src/features/chain-variants/eden/utils/batch-recipients';
+import TxDetailsShinerium from 'src/features/chain-variants/shinerium/pages/tx/TxDetailsShinerium';
 import TxAllowedPeekers from 'src/features/chain-variants/suave/pages/tx/TxAllowedPeekers';
 import TxDetailsTacOperation from 'src/features/chain-variants/tac/pages/tx/TxDetailsTacOperation';
 import TxDetailsCrossChainMessages from 'src/features/cross-chain-txs/pages/tx/TxDetailsCrossChainMessages';
@@ -136,6 +137,8 @@ const TxDetails = ({ data, isLoading, socketStatus, noTxActions }: Props) => {
       <TxHash hash={ data.hash } isLoading={ isLoading } status={ data.status }/>
 
       <TxDetailsStatus data={ data } isLoading={ isLoading } onShowDetailsClick={ expandDetailsSection }/>
+
+      <TxDetailsShinerium tx={ data } isLoading={ isLoading }/>
 
       { rollupFeature.isEnabled && rollupFeature.type === 'optimistic' && data.op_withdrawals && data.op_withdrawals.length > 0 &&
       !config.slices.tx.hiddenFields?.L1_status && (

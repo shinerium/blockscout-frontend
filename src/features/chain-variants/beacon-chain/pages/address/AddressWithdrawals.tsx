@@ -7,6 +7,7 @@ import ActionBar, { ACTION_BAR_HEIGHT_DESKTOP } from 'src/shell/page/action-bar/
 
 import BeaconChainWithdrawalsTable from 'src/features/chain-variants/beacon-chain/pages/withdrawals/BeaconChainWithdrawalsTable';
 import { WITHDRAWAL } from 'src/features/chain-variants/beacon-chain/stubs/withdrawals';
+import { getWithdrawalsNaming } from 'src/features/chain-variants/shinerium/utils/withdrawals-naming';
 
 import useIsMounted from 'src/shared/hooks/useIsMounted';
 import DataList from 'src/shared/lists/DataList';
@@ -65,7 +66,7 @@ const AddressWithdrawals = ({ shouldRender = true, isQueryEnabled = true }: Prop
     <DataList
       isError={ isError }
       itemsNum={ data?.items?.length }
-      emptyText="There are no withdrawals for this address."
+      emptyText={ `There are no ${ getWithdrawalsNaming().plural } for this address.` }
       actionBar={ actionBar }
       isTransitioning={ isTransitioning }
     >

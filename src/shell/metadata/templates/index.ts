@@ -357,7 +357,14 @@ export const TEMPLATE_MAP: Record<Route['pathname'], RouteTemplateRecord> = {
     },
   },
   '/withdrawals': {
-    metadata: {
+    metadata: config.features.shinerium.isEnabled ? {
+      title: {
+        'default': '%chain_name% rewards - track on %chain_name% explorer',
+      },
+      description: {
+        'default': 'Track %chain_name% rewards. Monitor the rewards each epoch pays, their amounts, recipients, and timestamps.',
+      },
+    } : {
       title: {
         'default': '%chain_name% withdrawals - track on %chain_name% explorer',
       },

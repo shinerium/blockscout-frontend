@@ -15,6 +15,9 @@ import getChainValidatorTitle from 'src/slices/chain/verification-type/utils/get
 import GasUsed from 'src/slices/gas/components/GasUsed';
 
 import BlockDetailsBaseFeeCelo from 'src/features/chain-variants/celo/pages/block/BlockDetailsBaseFeeCelo';
+import BlockDetailsShinerium from 'src/features/chain-variants/shinerium/pages/block/BlockDetailsShinerium';
+import BlockDetailsShineriumHashes from 'src/features/chain-variants/shinerium/pages/block/BlockDetailsShineriumHashes';
+import { getWithdrawalsNaming } from 'src/features/chain-variants/shinerium/utils/withdrawals-naming';
 import BlockDetailsZilliqaQuorumCertificate from 'src/features/chain-variants/zilliqa/pages/block/BlockDetailsZilliqaQuorumCertificate';
 import BlockDetailsBlobInfo from 'src/features/data-availability/pages/block/BlockDetailsBlobInfo';
 import { useMultichainContext } from 'src/features/multichain/context';
@@ -58,6 +61,7 @@ interface Props {
 }
 
 const rollupFeature = config.features.rollup;
+const withdrawalsNaming = getWithdrawalsNaming();
 
 const BlockDetails = ({ query }: Props) => {
   const router = useRouter();
@@ -271,15 +275,15 @@ const BlockDetails = ({ query }: Props) => {
       { config.features.beaconChain.isEnabled && Boolean(data.withdrawals_count) && (
         <>
           <DetailedInfo.ItemLabel
-            hint="The number of beacon withdrawals in the block"
+            hint={ withdrawalsNaming.blockHint }
             isLoading={ isPlaceholderData }
           >
-            Withdrawals
+            { withdrawalsNaming.title }
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
             <Skeleton loading={ isPlaceholderData }>
               <Link href={ route({ pathname: '/block/[height_or_hash]', query: { height_or_hash: heightOrHash, tab: 'withdrawals' } }, multichainContext) }>
-                { data.withdrawals_count } withdrawal{ data.withdrawals_count === 1 ? '' : 's' }
+                { data.withdrawals_count } { data.withdrawals_count === 1 ? withdrawalsNaming.singular : withdrawalsNaming.plural }
               </Link>
             </Skeleton>
           </DetailedInfo.ItemValue>
@@ -434,6 +438,8 @@ const BlockDetails = ({ query }: Props) => {
           </DetailedInfo.ItemValue>
         </>
       ) }
+
+      <BlockDetailsShinerium block={ data } isLoading={ isPlaceholderData }/>
 
       <DetailedInfo.ItemDivider/>
 
@@ -742,6 +748,8 @@ const BlockDetails = ({ query }: Props) => {
             </DetailedInfo.ItemValue>
           </>
         ) }
+
+        <BlockDetailsShineriumHashes block={ data }/>
 
         { data.zilliqa && (data.zilliqa?.quorum_certificate || data.zilliqa?.aggregate_quorum_certificate) && (
           <>

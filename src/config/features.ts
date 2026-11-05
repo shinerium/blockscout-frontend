@@ -32,6 +32,7 @@ export { default as dexPools } from 'src/features/dex-pools/config';
 export { default as rewards } from 'src/features/rewards/config';
 export { default as rollup } from 'src/features/rollup/common/config';
 export { default as safe } from 'src/features/safe/config';
+export { default as shinerium } from 'src/features/chain-variants/shinerium/config';
 export { default as sol2uml } from 'src/features/sol2uml/config';
 export { default as stats } from 'src/features/chain-stats/config';
 export { default as suave } from 'src/features/chain-variants/suave/config';

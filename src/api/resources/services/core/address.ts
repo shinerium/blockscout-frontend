@@ -3,6 +3,7 @@
 import type { ApiResource } from '../../types';
 import type { paths } from '@blockscout/api-types';
 import type { AddressesMetadataSearchFilters, AddressesMetadataSearchResult } from 'src/features/address-metadata/types/api';
+import type { ShineriumAccount } from 'src/features/chain-variants/shinerium/types/api';
 import type {
   AddressXStarResponse,
   AddressTxsFilters,
@@ -120,6 +121,10 @@ export const CORE_API_ADDRESS_RESOURCES = {
     filterFields: [],
     paginated: true,
   },
+  address_shinerium_account: {
+    path: '/api/v2/shinerium/addresses/:hash',
+    pathParams: [ 'hash' as const ],
+  },
   address_xstar_score: {
     path: '/api/v2/proxy/3rdparty/xname/addresses/:hash',
     pathParams: [ 'hash' as const ],
@@ -176,6 +181,7 @@ R extends 'core:address_collections' ? paths['/api/v2/addresses/{address_hash_pa
 R extends 'core:address_withdrawals' ? paths['/api/v2/addresses/{address_hash_param}/withdrawals']['get'] :
 R extends 'core:address_deposits' ? paths['/api/v2/addresses/{address_hash_param}/beacon/deposits']['get'] :
 R extends 'core:address_epoch_rewards' ? paths['/api/v2/addresses/{address_hash_param}/celo/election-rewards']['get'] :
+R extends 'core:address_shinerium_account' ? ShineriumAccount :
 R extends 'core:address_xstar_score' ? AddressXStarResponse :
 R extends 'core:address_3rd_party_info' ? unknown :
 never;

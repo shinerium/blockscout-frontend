@@ -5,6 +5,7 @@ import React from 'react';
 
 import type { NavItemInternal, NavItem, NavGroupItem } from './types';
 
+import { getWithdrawalsNaming } from 'src/features/chain-variants/shinerium/utils/withdrawals-naming';
 import { layerLabels } from 'src/features/rollup/common/utils/layer';
 
 import config from 'src/config';
@@ -230,7 +231,7 @@ export default function useNavItems(): ReturnType {
           isActive: pathname === '/deposits',
         },
         config.features.beaconChain.isEnabled && {
-          text: 'Withdrawals',
+          text: getWithdrawalsNaming().title,
           nextRoute: { pathname: '/withdrawals' as const },
           icon: 'navigation/withdrawals',
           isActive: pathname === '/withdrawals',

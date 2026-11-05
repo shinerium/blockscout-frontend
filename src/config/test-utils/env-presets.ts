@@ -106,6 +106,11 @@ export const ENVS_MAP: Record<string, Array<[string, string]>> = {
   celo: [
     [ 'NEXT_PUBLIC_CELO_ENABLED', 'true' ],
   ],
+  shinerium: [
+    [ 'NEXT_PUBLIC_HAS_BEACON_CHAIN', 'true' ],
+    [ 'NEXT_PUBLIC_BEACON_CHAIN_WITHDRAWALS_ONLY', 'true' ],
+    [ 'NEXT_PUBLIC_SHINERIUM_ENABLED', 'true' ],
+  ],
   multichain: [
     [ 'NEXT_PUBLIC_MULTICHAIN_ENABLED', 'true' ],
     [ 'NEXT_PUBLIC_MULTICHAIN_CLUSTER', 'test' ],

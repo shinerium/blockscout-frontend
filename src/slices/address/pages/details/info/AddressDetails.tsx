@@ -17,6 +17,7 @@ import Address3rdPartyWidgets from 'src/features/address-3rd-party-widgets/pages
 import useAddress3rdPartyWidgets from 'src/features/address-3rd-party-widgets/pages/address/useAddress3rdPartyWidgets';
 import AddressCeloAccount from 'src/features/chain-variants/celo/pages/address/AddressCeloAccount';
 import FilecoinActorTag from 'src/features/chain-variants/filecoin/pages/address/FilecoinActorTag';
+import AddressShineriumAccount from 'src/features/chain-variants/shinerium/pages/address/AddressShineriumAccount';
 
 import config from 'src/config';
 import ApiFetchAlert from 'src/shared/alerts/ApiFetchAlert';
@@ -180,6 +181,8 @@ const AddressDetails = ({ addressQuery, countersQuery, isLoading }: Props) => {
         ) }
 
         <AddressBalance data={ data } isLoading={ isLoading }/>
+
+        <AddressShineriumAccount addressHash={ addressHash } isContract={ addressType === 'contract' } isLoading={ Boolean(isLoading) }/>
 
         { data.has_tokens && (
           <>

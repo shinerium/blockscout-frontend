@@ -28,6 +28,8 @@ import BlockWithdrawals from 'src/features/chain-variants/beacon-chain/pages/blo
 import useBlockDepositsQuery from 'src/features/chain-variants/beacon-chain/pages/block/useBlockDepositsQuery';
 import useBlockWithdrawalsQuery from 'src/features/chain-variants/beacon-chain/pages/block/useBlockWithdrawalsQuery';
 import BlockCeloEpochTag from 'src/features/chain-variants/celo/pages/block/BlockCeloEpochTag';
+import BlockShineriumCarrierTag from 'src/features/chain-variants/shinerium/pages/block/BlockShineriumCarrierTag';
+import { getWithdrawalsNaming } from 'src/features/chain-variants/shinerium/utils/withdrawals-naming';
 import useBlockBlobTxsQuery from 'src/features/data-availability/hooks/useBlockBlobTxsQuery';
 import { useMultichainContext } from 'src/features/multichain/context';
 
@@ -131,7 +133,7 @@ const BlockPageContent = () => {
     beaconChainFeature.isEnabled && Boolean(blockQuery.data?.withdrawals_count) ?
       {
         id: 'withdrawals',
-        title: 'Withdrawals',
+        title: getWithdrawalsNaming().title,
         component: (
           <>
             { blockWithdrawalsQuery.isDegradedData &&
@@ -224,7 +226,12 @@ const BlockPageContent = () => {
       <PageTitle
         title={ title }
         beforeTitle={ beforeTitleElement }
-        contentAfter={ <BlockCeloEpochTag blockQuery={ blockQuery }/> }
+        contentAfter={ (
+          <>
+            <BlockCeloEpochTag blockQuery={ blockQuery }/>
+            <BlockShineriumCarrierTag blockQuery={ blockQuery }/>
+          </>
+        ) }
         secondRow={ titleSecondRow }
         isLoading={ blockQuery.isPlaceholderData }
       />

@@ -11,6 +11,8 @@ import PageTitle from 'src/shell/page/title/PageTitle';
 
 import { currencyUnits } from 'src/slices/chain/units';
 
+import { getWithdrawalsNaming } from 'src/features/chain-variants/shinerium/utils/withdrawals-naming';
+
 import config from 'src/config';
 import DataList from 'src/shared/lists/DataList';
 import StickyPaginationWithText from 'src/shared/pagination/StickyPaginationWithText';
@@ -25,6 +27,7 @@ import { WITHDRAWAL } from '../../stubs/withdrawals';
 import BeaconChainWithdrawalsTable from './BeaconChainWithdrawalsTable';
 
 const feature = config.features.beaconChain;
+const naming = getWithdrawalsNaming();
 
 const BeaconChainWithdrawals = () => {
   const { data, isError, isInitialLoading, isTransitioning, pagination, queryHash } = useApiPaginatedQuery({
@@ -67,11 +70,11 @@ const BeaconChainWithdrawals = () => {
       <Skeleton loading={ countersQuery.isPlaceholderData || isInitialLoading } display="flex" flexWrap="wrap">
         { countersQuery.data && (
           <Text lineHeight={{ base: '24px', lg: '32px' }}>
-            { BigNumber(countersQuery.data.withdrawals_count).toFormat() } withdrawals processed
+            { BigNumber(countersQuery.data.withdrawals_count).toFormat() } { naming.plural } { naming.processed }
             and { calculateUsdValue({
               amount: countersQuery.data.withdrawals_sum,
               decimals: String(config.chain.currency.decimals),
-            }).valueStr } { currencyUnits.ether } withdrawn
+            }).valueStr } { currencyUnits.ether } { naming.moved }
           </Text>
         ) }
       </Skeleton>
@@ -82,11 +85,11 @@ const BeaconChainWithdrawals = () => {
 
   return (
     <>
-      <PageTitle title="Withdrawals" withTextAd/>
+      <PageTitle title={ naming.title } withTextAd/>
       <DataList
         isError={ isError }
         itemsNum={ data?.items.length }
-        emptyText="There are no withdrawals."
+        emptyText={ `There are no ${ naming.plural }.` }
         actionBar={ actionBar }
         isTransitioning={ isTransitioning }
       >

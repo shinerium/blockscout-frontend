@@ -48,6 +48,7 @@ import AlternativeExplorers from 'src/features/alternative-explorers/components/
 import AddressDeposits from 'src/features/chain-variants/beacon-chain/pages/address/AddressDeposits';
 import AddressWithdrawals from 'src/features/chain-variants/beacon-chain/pages/address/AddressWithdrawals';
 import AddressEpochRewards from 'src/features/chain-variants/celo/pages/address/AddressEpochRewards';
+import { getWithdrawalsNaming } from 'src/features/chain-variants/shinerium/utils/withdrawals-naming';
 import { useAddressClusters } from 'src/features/name-services/clusters/hooks/useAddressClusters';
 import AddressClusters from 'src/features/name-services/clusters/pages/address/AddressClusters';
 import EnsEntity from 'src/features/name-services/domains/components/EnsEntity';
@@ -233,7 +234,7 @@ const AddressPageContent = () => {
       config.features.beaconChain.isEnabled && addressTabsCountersQuery.data?.withdrawals_count ?
         {
           id: 'withdrawals',
-          title: 'Withdrawals',
+          title: getWithdrawalsNaming().title,
           count: addressTabsCountersQuery.data?.withdrawals_count,
           component: <AddressWithdrawals shouldRender={ !isTabsLoading } isQueryEnabled={ areQueriesEnabled }/>,
         } :

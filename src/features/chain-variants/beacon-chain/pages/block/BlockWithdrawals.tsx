@@ -2,6 +2,8 @@
 
 import React from 'react';
 
+import { getWithdrawalsNaming } from 'src/features/chain-variants/shinerium/utils/withdrawals-naming';
+
 import DataList from 'src/shared/lists/DataList';
 import type { ApiPaginatedQueryResult } from 'src/shared/pagination/useApiPaginatedQuery';
 
@@ -31,7 +33,7 @@ const BlockWithdrawals = ({ blockWithdrawalsQuery }: Props) => {
     <DataList
       isError={ blockWithdrawalsQuery.isError }
       itemsNum={ blockWithdrawalsQuery.data?.items?.length }
-      emptyText="There are no withdrawals for this block."
+      emptyText={ `There are no ${ getWithdrawalsNaming().plural } for this block.` }
       isTransitioning={ blockWithdrawalsQuery.isTransitioning }
     >
       { content }

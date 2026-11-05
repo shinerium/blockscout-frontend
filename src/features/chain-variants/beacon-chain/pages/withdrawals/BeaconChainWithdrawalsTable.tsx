@@ -6,6 +6,8 @@ import type { schemas } from '@blockscout/api-types';
 
 import { AddressHighlightProvider } from 'src/slices/address/contexts/address-highlight';
 
+import ShineriumRewardsTable from 'src/features/chain-variants/shinerium/pages/rewards/ShineriumRewardsTable';
+
 import config from 'src/config';
 import TimeFormatToggle from 'src/shared/date-and-time/TimeFormatToggle';
 import useLazyRenderedList from 'src/shared/lists/useLazyRenderedList';
@@ -24,7 +26,7 @@ interface Props {
   resetKey?: string;
 };
 
-const BeaconChainWithdrawalsTable = ({ items, isLoading, top, view, resetKey }: Props) => {
+const BeaconWithdrawalsTable = ({ items, isLoading, top, view, resetKey }: Props) => {
   const { cutRef, renderedItemsNum } = useLazyRenderedList({ list: items, isEnabled: !isLoading, resetKey });
 
   if (!feature.isEnabled) {
@@ -53,6 +55,14 @@ const BeaconChainWithdrawalsTable = ({ items, isLoading, top, view, resetKey }: 
       </TableRoot>
     </AddressHighlightProvider>
   );
+};
+
+const BeaconChainWithdrawalsTable = (props: Props) => {
+  if (config.features.shinerium.isEnabled) {
+    return <ShineriumRewardsTable { ...props }/>;
+  }
+
+  return <BeaconWithdrawalsTable { ...props }/>;
 };
 
 export default BeaconChainWithdrawalsTable;
