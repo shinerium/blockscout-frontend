@@ -6,6 +6,8 @@ import type { schemas } from '@blockscout/api-types';
 
 import TokenEntity from 'src/slices/token/components/entity/TokenEntity';
 
+import { getAddressNameLabel } from 'src/features/chain-variants/shinerium/utils/address-name-label';
+
 import * as DetailedInfo from 'src/shared/detailed-info/DetailedInfo';
 
 import { Skeleton } from 'src/toolkit/chakra/skeleton';
@@ -14,6 +16,8 @@ interface Props {
   data: Pick<schemas['AddressResponse'], 'name' | 'token' | 'is_contract'>;
   isLoading?: boolean;
 }
+
+const nameLabel = getAddressNameLabel();
 
 const AddressNameInfo = ({ data, isLoading }: Props) => {
   if (data.token) {
@@ -59,10 +63,10 @@ const AddressNameInfo = ({ data, isLoading }: Props) => {
     return (
       <>
         <DetailedInfo.ItemLabel
-          hint="The name of the validator"
+          hint={ nameLabel.hint }
           isLoading={ isLoading }
         >
-          Validator name
+          { nameLabel.label }
         </DetailedInfo.ItemLabel>
         <DetailedInfo.ItemValue>
           <Skeleton loading={ isLoading }>
