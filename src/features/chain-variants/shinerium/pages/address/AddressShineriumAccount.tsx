@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: LicenseRef-Blockscout
 
-import { Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ShineriumAccountKey, ShineriumVesting } from 'src/features/chain-variants/shinerium/types/api';
@@ -50,8 +50,10 @@ const AddressShineriumKey = ({ data, isLoading }: KeyProps) => {
         { data.key_hash && (
           <DetailedInfoItemBreakdown.Container loading={ isLoading }>
             <DetailedInfoItemBreakdown.Row label="Key hash" hint="The hash of the key's scheme and public key">
-              <Flex alignItems="center" overflow="hidden">
-                <Truncate value={ data.key_hash }/>
+              <Flex alignItems="center" minW={ 0 }>
+                <Box overflow="hidden">
+                  <Truncate value={ data.key_hash }/>
+                </Box>
                 <CopyToClipboard text={ data.key_hash }/>
               </Flex>
             </DetailedInfoItemBreakdown.Row>
