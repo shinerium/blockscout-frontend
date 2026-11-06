@@ -28,7 +28,7 @@ interface Props {
 const EpochShineriumJoined = ({ data, isLoading }: Props) => {
   return (
     <TableContainerScrollable>
-      <TableRoot minW="800px">
+      <TableRoot minW="700px">
         <TableHeader>
           <TableRow>
             <TableColumnHeader width="45%">Node</TableColumnHeader>

@@ -52,7 +52,7 @@ const ValidatorShinerium = () => {
       { data && (
         <>
           <ValidatorShineriumDetails data={ data } isLoading={ isLoading }/>
-          <Heading level="3" mt={ 8 } mb={ 4 }>Epochs served</Heading>
+          <Heading level="3" mt={ 8 } mb={ 4 }>Epochs</Heading>
           <ValidatorShineriumEpochs id={ data.identity } isEnabled={ !isLoading }/>
         </>
       ) }

@@ -21,7 +21,7 @@ const EpochsShineriumTable = ({ data, isLoading, top, resetKey }: Props) => {
   const { cutRef, renderedItemsNum } = useLazyRenderedList({ list: data, isEnabled: !isLoading, resetKey });
 
   return (
-    <TableRoot minW="900px">
+    <TableRoot minW="800px">
       <TableHeaderSticky top={ top }>
         <TableRow>
           <TableColumnHeader width="28%">Epoch</TableColumnHeader>
