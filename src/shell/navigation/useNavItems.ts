@@ -29,6 +29,8 @@ export function isInternalItem(item: NavItem): item is NavItemInternal {
   return 'nextRoute' in item;
 }
 
+const HAS_EPOCHS = config.features.celo.isEnabled || config.features.shinerium.isEnabled;
+
 export default function useNavItems(): ReturnType {
   const router = useRouter();
   const pathname = router.pathname;
@@ -134,7 +136,7 @@ export default function useNavItems(): ReturnType {
       icon: 'navigation/games',
       isActive: pathname === '/dispute-games',
     } : null;
-    const epochs = config.features.celo.isEnabled ? {
+    const epochs = HAS_EPOCHS ? {
       text: 'Epochs',
       nextRoute: { pathname: '/epochs' as const },
       icon: 'navigation/hourglass',

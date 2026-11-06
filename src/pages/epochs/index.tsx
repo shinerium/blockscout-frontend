@@ -6,7 +6,15 @@ import React from 'react';
 
 import PageNextJs from 'src/server/PageNextJs';
 
-const Epochs = dynamic(() => import('src/features/chain-variants/celo/pages/epoch-index/Epochs'), { ssr: false });
+import config from 'src/config';
+
+const Epochs = dynamic(() => {
+  if (config.features.shinerium.isEnabled) {
+    return import('src/features/chain-variants/shinerium/pages/epoch-index/EpochsShinerium');
+  }
+
+  return import('src/features/chain-variants/celo/pages/epoch-index/Epochs');
+}, { ssr: false });
 
 const Page: NextPage = () => {
   return (
@@ -18,4 +26,4 @@ const Page: NextPage = () => {
 
 export default Page;
 
-export { celo as getServerSideProps } from 'src/server/getServerSideProps/main';
+export { epochs as getServerSideProps } from 'src/server/getServerSideProps/main';

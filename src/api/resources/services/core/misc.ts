@@ -9,6 +9,14 @@ import type {
   ValidatorsBlackfortSorting,
 } from 'src/features/chain-variants/blackfort/types/api';
 import type {
+  ShineriumBlockConsensus,
+  ShineriumEpochDetailed,
+  ShineriumEpochsResponse,
+  ShineriumValidatorDetailed,
+  ShineriumValidatorEpochsResponse,
+  ShineriumValidatorsResponse,
+} from 'src/features/chain-variants/shinerium/types/api';
+import type {
   ValidatorsStabilityCountersResponse,
   ValidatorsStabilityFilters,
   ValidatorsStabilityResponse,
@@ -169,6 +177,36 @@ export const CORE_API_MISC_RESOURCES = {
     filterFields: [],
   },
 
+  // SHINERIUM
+  shinerium_epochs: {
+    path: '/api/v2/shinerium/epochs',
+    filterFields: [],
+    paginated: true,
+  },
+  shinerium_epoch: {
+    path: '/api/v2/shinerium/epochs/:number',
+    pathParams: [ 'number' as const ],
+  },
+  shinerium_validators: {
+    path: '/api/v2/shinerium/validators',
+    filterFields: [],
+    paginated: true,
+  },
+  shinerium_validator: {
+    path: '/api/v2/shinerium/validators/:id',
+    pathParams: [ 'id' as const ],
+  },
+  shinerium_validator_epochs: {
+    path: '/api/v2/shinerium/validators/:id/epochs',
+    pathParams: [ 'id' as const ],
+    filterFields: [],
+    paginated: true,
+  },
+  shinerium_block_consensus: {
+    path: '/api/v2/shinerium/blocks/:height_or_hash/consensus',
+    pathParams: [ 'height_or_hash' as const ],
+  },
+
   // BLOBS
   blob: {
     path: '/api/v2/blobs/:hash',
@@ -291,6 +329,12 @@ R extends 'core:validators_blackfort_counters' ? ValidatorsBlackfortCountersResp
 R extends 'core:validators_zilliqa' ? paths['/api/v2/validators/zilliqa']['get'] :
 R extends 'core:validator_zilliqa' ? paths['/api/v2/validators/zilliqa/{bls_public_key}']['get'] :
 R extends 'core:epochs_celo' ? paths['/api/v2/celo/epochs']['get'] :
+R extends 'core:shinerium_epochs' ? ShineriumEpochsResponse :
+R extends 'core:shinerium_epoch' ? ShineriumEpochDetailed :
+R extends 'core:shinerium_validators' ? ShineriumValidatorsResponse :
+R extends 'core:shinerium_validator' ? ShineriumValidatorDetailed :
+R extends 'core:shinerium_validator_epochs' ? ShineriumValidatorEpochsResponse :
+R extends 'core:shinerium_block_consensus' ? ShineriumBlockConsensus :
 R extends 'core:epoch_celo' ? paths['/api/v2/celo/epochs/{number}']['get'] :
 R extends 'core:epoch_celo_election_rewards' ? paths['/api/v2/celo/epochs/{number}/election-rewards/{type}']['get'] :
 R extends 'core:user_ops' ? paths['/api/v2/proxy/account-abstraction/operations']['get'] :
