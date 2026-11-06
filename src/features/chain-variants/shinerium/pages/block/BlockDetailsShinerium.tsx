@@ -7,6 +7,9 @@ import type { schemas } from '@blockscout/api-types';
 
 import AddressEntity from 'src/slices/address/components/entity/AddressEntity';
 
+import ShineriumEpochEntity from 'src/features/chain-variants/shinerium/components/ShineriumEpochEntity';
+
+import config from 'src/config';
 import * as DetailedInfo from 'src/shared/detailed-info/DetailedInfo';
 import CopyToClipboard from 'src/shared/texts/CopyToClipboard';
 import NativeCoinValue from 'src/shared/values/entity/NativeCoinValue';
@@ -15,6 +18,7 @@ import { Skeleton } from 'src/toolkit/chakra/skeleton';
 import { Truncate } from 'src/toolkit/components/truncation/Truncate';
 
 import { getBlockEpoch, getShineriumBlock, isCarrier } from '../../utils/shinerium-data';
+import BlockDetailsShineriumConsensus from './BlockDetailsShineriumConsensus';
 
 const COMMITTEE_REWARD_HINT = 'What this carrier pays for the epoch\'s validation: the committee members\' shares and ' +
   'the Proof-of-Qualification miner\'s. The funds\' shares come on top';
@@ -46,9 +50,26 @@ const BlockDetailsShinerium = ({ block, isLoading }: Props) => {
             Epoch
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue>
-            <Skeleton loading={ isLoading }>{ epoch }</Skeleton>
+            { config.features.shinerium.isEnabled ?
+              <ShineriumEpochEntity number={ epoch } noIcon isLoading={ isLoading }/> :
+              <Skeleton loading={ isLoading }>{ epoch }</Skeleton> }
           </DetailedInfo.ItemValue>
         </>
+      ) }
+
+      { typeof data.view === 'number' && (
+        <>
+          <DetailedInfo.ItemLabel hint="The consensus round of the epoch that made the block" isLoading={ isLoading }>
+            View
+          </DetailedInfo.ItemLabel>
+          <DetailedInfo.ItemValue>
+            <Skeleton loading={ isLoading }>{ data.view }</Skeleton>
+          </DetailedInfo.ItemValue>
+        </>
+      ) }
+
+      { typeof data.view === 'number' && config.features.shinerium.isEnabled && (
+        <BlockDetailsShineriumConsensus height={ block.height } isLoading={ isLoading }/>
       ) }
 
       { data.control_block_number !== null && (

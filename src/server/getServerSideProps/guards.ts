@@ -141,7 +141,7 @@ export const validators: Guard = (chainConfig: typeof config) => async() => {
 
 export const validatorDetails: Guard = (chainConfig: typeof config) => async() => {
   const feature = chainConfig.features.validators;
-  if (!feature.isEnabled || feature.chainType !== 'zilliqa') {
+  if (!feature.isEnabled || (feature.chainType !== 'zilliqa' && feature.chainType !== 'shinerium')) {
     return {
       notFound: true,
     };
@@ -310,6 +310,14 @@ export const tac: Guard = (chainConfig: typeof config) => async() => {
 
 export const celo: Guard = (chainConfig: typeof config) => async() => {
   if (!chainConfig.features.celo.isEnabled) {
+    return {
+      notFound: true,
+    };
+  }
+};
+
+export const epochs: Guard = (chainConfig: typeof config) => async() => {
+  if (!chainConfig.features.celo.isEnabled && !chainConfig.features.shinerium.isEnabled) {
     return {
       notFound: true,
     };

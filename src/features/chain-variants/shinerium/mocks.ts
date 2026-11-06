@@ -19,6 +19,9 @@ export const carrierBlock: ShineriumBlock = {
   block_access_list_hash: '0x5a38a00785025d473ab26047c0333b39f83fb9fbb17f53dbf01fc287697e953b',
   poq_miner_hash: null,
   anchor_chain_hash: null,
+  epoch: 145,
+  view: 412,
+  justify: { epoch: 145, view: 411, scheme: 3, signers_count: 7 },
 };
 
 export const normalBlock: ShineriumBlock = {

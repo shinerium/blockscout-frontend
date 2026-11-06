@@ -16,6 +16,10 @@ const ValidatorDetails = dynamic(() => {
     return import('src/features/chain-variants/zilliqa/pages/validator-details/ValidatorZilliqa');
   }
 
+  if (validatorsFeature.isEnabled && validatorsFeature.chainType === 'shinerium') {
+    return import('src/features/chain-variants/shinerium/pages/validator-details/ValidatorShinerium');
+  }
+
   throw new Error('Validators feature is not enabled.');
 }, { ssr: false });
 
