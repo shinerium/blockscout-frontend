@@ -77,7 +77,7 @@ const EpochShineriumMembersItem = ({ member, qcs, isLoading }: ItemProps) => {
 const EpochShineriumMembers = ({ data, isLoading }: Props) => {
   return (
     <TableContainerScrollable>
-      <TableRoot minW="900px">
+      <TableRoot minW="800px">
         <TableHeader>
           <TableRow>
             <TableColumnHeader width="5%">Seat</TableColumnHeader>

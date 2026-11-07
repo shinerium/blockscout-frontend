@@ -24,7 +24,7 @@ const ValidatorsShineriumTable = ({ data, isLoading, resetKey }: Props) => {
   const { cutRef, renderedItemsNum } = useLazyRenderedList({ list: data, isEnabled: !isLoading, resetKey });
 
   return (
-    <TableRoot minW="900px">
+    <TableRoot minW="800px">
       <TableHeaderSticky top={ 0 }>
         <TableRow>
           <TableColumnHeader width="24%">Validator</TableColumnHeader>
