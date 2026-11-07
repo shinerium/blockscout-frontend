@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: LicenseRef-Blockscout
 
+import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import type { schemas } from '@blockscout/api-types';
@@ -15,7 +16,7 @@ import { Skeleton } from 'src/toolkit/chakra/skeleton';
 import { TableCell, TableRow } from 'src/toolkit/chakra/table';
 import { Tooltip } from 'src/toolkit/chakra/tooltip';
 
-import { getRewardTypeLabel } from '../../utils/labels';
+import { getRewardTypeLabel, isProposerReward } from '../../utils/labels';
 import { getShineriumWithdrawal } from '../../utils/shinerium-data';
 
 interface Props {
@@ -23,6 +24,31 @@ interface Props {
   readonly view: 'address' | 'block' | 'list';
   readonly isLoading?: boolean;
 }
+
+interface MemberProps {
+  readonly rewardType: string | null;
+  readonly validatorHash: string | null | undefined;
+  readonly isLoading: boolean | undefined;
+}
+
+const ShineriumRewardMember = ({ rewardType, validatorHash, isLoading }: MemberProps) => {
+  if (!validatorHash) {
+    return '-';
+  }
+
+  return (
+    <Flex alignItems="center" columnGap={ 2 }>
+      { isProposerReward(rewardType) && (
+        <Skeleton loading={ isLoading } color="text.secondary" flexShrink={ 0 }>Proposer</Skeleton>
+      ) }
+      <AddressEntity
+        address={{ hash: validatorHash }}
+        isLoading={ isLoading }
+        truncation="constant"
+      />
+    </Flex>
+  );
+};
 
 const ShineriumRewardsTableItem = ({ item, view, isLoading }: Props) => {
   const reward = getShineriumWithdrawal(item);
@@ -51,13 +77,7 @@ const ShineriumRewardsTableItem = ({ item, view, isLoading }: Props) => {
         </TableCell>
       ) }
       <TableCell verticalAlign="middle">
-        { reward?.validator_hash ? (
-          <AddressEntity
-            address={{ hash: reward.validator_hash }}
-            isLoading={ isLoading }
-            truncation="constant"
-          />
-        ) : '-' }
+        <ShineriumRewardMember rewardType={ reward?.reward_type ?? null } validatorHash={ reward?.validator_hash } isLoading={ isLoading }/>
       </TableCell>
       { view !== 'address' && (
         <TableCell verticalAlign="middle">

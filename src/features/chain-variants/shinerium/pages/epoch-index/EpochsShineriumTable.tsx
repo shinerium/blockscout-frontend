@@ -4,9 +4,12 @@ import React from 'react';
 
 import type { ShineriumEpoch } from 'src/features/chain-variants/shinerium/types/api';
 
+import { EPOCH_QCS_HINT } from 'src/features/chain-variants/shinerium/utils/labels';
+
 import useLazyRenderedList from 'src/shared/lists/useLazyRenderedList';
 
 import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'src/toolkit/chakra/table';
+import { Hint } from 'src/toolkit/components/Hint/Hint';
 
 import EpochsShineriumTableItem from './EpochsShineriumTableItem';
 
@@ -27,7 +30,7 @@ const EpochsShineriumTable = ({ data, isLoading, top, resetKey }: Props) => {
           <TableColumnHeader width="28%">Epoch</TableColumnHeader>
           <TableColumnHeader width="22%">Blocks</TableColumnHeader>
           <TableColumnHeader width="12%" isNumeric>Committee</TableColumnHeader>
-          <TableColumnHeader width="12%" isNumeric>QCs</TableColumnHeader>
+          <TableColumnHeader width="12%" isNumeric>QCs<Hint label={ EPOCH_QCS_HINT } ml={ 1 }/></TableColumnHeader>
           <TableColumnHeader width="14%" isNumeric>Signed</TableColumnHeader>
           <TableColumnHeader width="12%" isNumeric>Joined / left</TableColumnHeader>
         </TableRow>

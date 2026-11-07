@@ -64,6 +64,11 @@ const CONTRACTS: Readonly<Partial<Record<string, string>>> = {
   council: 'Council',
 };
 
+const PROPOSER_REWARD_TYPES: ReadonlySet<string> = new Set([ 'poq', 'ecosystem', 'support' ]);
+
+export const EPOCH_QCS_HINT = 'The quorum certificates of the epoch\'s blocks before its carrier, each carried by the block after it: ' +
+  'a quiet epoch of three blocks has two';
+
 const unknownLabel = (text: string, hint: string): ShineriumLabel => ({ text, hint, color: 'gray' });
 
 export const getRewardTypeLabel = (rewardType: string | null): ShineriumLabel => {
@@ -72,6 +77,10 @@ export const getRewardTypeLabel = (rewardType: string | null): ShineriumLabel =>
   }
 
   return REWARD_TYPES[rewardType] ?? unknownLabel(rewardType, 'A reward the carrier pays for its epoch');
+};
+
+export const isProposerReward = (rewardType: string | null): boolean => {
+  return rewardType !== null && PROPOSER_REWARD_TYPES.has(rewardType);
 };
 
 export const getFormLabel = (form: string): ShineriumLabel =>

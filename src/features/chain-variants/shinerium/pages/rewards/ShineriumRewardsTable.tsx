@@ -11,8 +11,11 @@ import TimeFormatToggle from 'src/shared/date-and-time/TimeFormatToggle';
 import useLazyRenderedList from 'src/shared/lists/useLazyRenderedList';
 
 import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'src/toolkit/chakra/table';
+import { Hint } from 'src/toolkit/components/Hint/Hint';
 
 import ShineriumRewardsTableItem from './ShineriumRewardsTableItem';
+
+const MEMBER_HINT = 'The committee member paid; for the PoQ miner\'s and the funds\' rewards, the member that proposed the carrier';
 
 interface Props {
   readonly top: number;
@@ -33,7 +36,7 @@ const ShineriumRewardsTable = ({ items, isLoading, top, view, resetKey }: Props)
             <TableColumnHeader>Type</TableColumnHeader>
             <TableColumnHeader>Epoch</TableColumnHeader>
             { view !== 'block' && <TableColumnHeader>Block</TableColumnHeader> }
-            <TableColumnHeader>Member</TableColumnHeader>
+            <TableColumnHeader>Member<Hint label={ MEMBER_HINT } ml={ 1 }/></TableColumnHeader>
             { view !== 'address' && <TableColumnHeader>To</TableColumnHeader> }
             { view !== 'block' && <TableColumnHeader>Timestamp<TimeFormatToggle/></TableColumnHeader> }
             <TableColumnHeader>{ `Value ${ currencyUnits.ether }` }</TableColumnHeader>

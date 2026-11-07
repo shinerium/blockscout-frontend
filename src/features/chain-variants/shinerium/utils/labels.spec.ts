@@ -3,7 +3,15 @@
 import { describe, it, expect } from 'vitest';
 
 import * as mocks from '../mocks';
-import { getContractLabel, getFormLabel, getOperationDetails, getOperationName, getPolicyLabel, getRewardTypeLabel } from './labels';
+import {
+  getContractLabel,
+  getFormLabel,
+  getOperationDetails,
+  getOperationName,
+  getPolicyLabel,
+  getRewardTypeLabel,
+  isProposerReward,
+} from './labels';
 
 describe('getRewardTypeLabel', () => {
   it('names the node\'s reward types', () => {
@@ -16,6 +24,20 @@ describe('getRewardTypeLabel', () => {
   it('passes an unknown type through, in gray, and names a missing one a reward', () => {
     expect(getRewardTypeLabel('bonus')).toMatchObject({ text: 'bonus', color: 'gray' });
     expect(getRewardTypeLabel(null)).toMatchObject({ text: 'Reward', color: 'gray' });
+  });
+});
+
+describe('isProposerReward', () => {
+  it('is a reward whose withdrawal names the member that proposed the carrier', () => {
+    expect(isProposerReward('poq')).toBe(true);
+    expect(isProposerReward('ecosystem')).toBe(true);
+    expect(isProposerReward('support')).toBe(true);
+  });
+
+  it('is not a member\'s own reward, nor one of a type not known', () => {
+    expect(isProposerReward('committee')).toBe(false);
+    expect(isProposerReward('leader')).toBe(false);
+    expect(isProposerReward(null)).toBe(false);
   });
 });
 

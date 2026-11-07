@@ -9,6 +9,7 @@ import {
   formatShare,
   getEpochParticipation,
   getSignedShare,
+  isEpochGenesisCertificate,
   shortenIdentity,
 } from './consensus';
 
@@ -79,5 +80,16 @@ describe('formatRemoval', () => {
 describe('shortenIdentity', () => {
   it('keeps the start and the end of the key', () => {
     expect(shortenIdentity('0x7a8c7e56b6d2741a685511134b3e7e44c7a044784566e2c84e91816a730ea791')).toBe('0x7a8c7e56…730ea791');
+  });
+});
+
+describe('isEpochGenesisCertificate', () => {
+  it('is the view 0 on which an epoch starts', () => {
+    expect(isEpochGenesisCertificate({ view: 0 })).toBe(true);
+  });
+
+  it('is no certificate of a later view, nor one whose view is not known', () => {
+    expect(isEpochGenesisCertificate({ view: 1 })).toBe(false);
+    expect(isEpochGenesisCertificate({ view: null })).toBe(false);
   });
 });

@@ -2,7 +2,7 @@
 
 import { capitalize } from 'es-toolkit';
 
-import type { ShineriumLocation, ShineriumRemoval } from '../types/api';
+import type { ShineriumCertificate, ShineriumLocation, ShineriumRemoval } from '../types/api';
 
 export const formatLocation = (location: ShineriumLocation | null): string | null => {
   if (!location) {
@@ -42,6 +42,10 @@ export const formatBondStatus = (status: string | null): string | null => {
 
 export const formatRemoval = (removal: ShineriumRemoval): string => {
   return removal.name ? capitalize(removal.name) : `Reason ${ removal.code }`;
+};
+
+export const isEpochGenesisCertificate = (certificate: Pick<ShineriumCertificate, 'view'>): boolean => {
+  return certificate.view === 0;
 };
 
 export const shortenIdentity = (identity: string): string => {

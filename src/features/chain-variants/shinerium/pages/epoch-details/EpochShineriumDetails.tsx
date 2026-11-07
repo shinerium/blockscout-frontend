@@ -8,6 +8,7 @@ import type { ShineriumEpochDetailed } from 'src/features/chain-variants/shineri
 import BlockEntity from 'src/slices/block/components/entity/BlockEntity';
 
 import { formatShare, getEpochParticipation } from 'src/features/chain-variants/shinerium/utils/consensus';
+import { EPOCH_QCS_HINT } from 'src/features/chain-variants/shinerium/utils/labels';
 
 import TimeWithTooltip from 'src/shared/date-and-time/TimeWithTooltip';
 import * as DetailedInfo from 'src/shared/detailed-info/DetailedInfo';
@@ -15,6 +16,8 @@ import CopyToClipboard from 'src/shared/texts/CopyToClipboard';
 
 import { Skeleton } from 'src/toolkit/chakra/skeleton';
 import { Truncate } from 'src/toolkit/components/truncation/Truncate';
+
+const QCS_HINT = `${ EPOCH_QCS_HINT }. Signed: the share of the members' possible signatures on them that were given`;
 
 interface Props {
   readonly data: ShineriumEpochDetailed;
@@ -94,7 +97,7 @@ const EpochShineriumDetails = ({ data, isLoading }: Props) => {
       { data.qcs !== null && (
         <>
           <DetailedInfo.ItemLabel
-            hint="The quorum certificates the epoch's blocks carry as justification, and the share of the members' possible signatures on them that were given"
+            hint={ QCS_HINT }
             isLoading={ isLoading }
           >
             Quorum certificates
