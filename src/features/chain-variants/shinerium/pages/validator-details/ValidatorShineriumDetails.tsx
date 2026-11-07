@@ -9,7 +9,8 @@ import AddressEntity from 'src/slices/address/components/entity/AddressEntity';
 import BlockEntity from 'src/slices/block/components/entity/BlockEntity';
 
 import ShineriumEpochEntity from 'src/features/chain-variants/shinerium/components/ShineriumEpochEntity';
-import { formatShare, getSignedShare } from 'src/features/chain-variants/shinerium/utils/consensus';
+import { formatLocation, formatShare, getSignedShare } from 'src/features/chain-variants/shinerium/utils/consensus';
+import { VALIDATOR_LOCATION_HINT } from 'src/features/chain-variants/shinerium/utils/labels';
 
 import * as DetailedInfo from 'src/shared/detailed-info/DetailedInfo';
 import CopyToClipboard from 'src/shared/texts/CopyToClipboard';
@@ -58,6 +59,19 @@ const ValidatorShineriumService = ({ data, isLoading }: Props) => (
           <ShineriumEpochEntity number={ data.first_epoch } noIcon isLoading={ isLoading }/>
           <Skeleton loading={ isLoading } color="text.secondary">to</Skeleton>
           <ShineriumEpochEntity number={ data.last_epoch } noIcon isLoading={ isLoading }/>
+        </>
+      ) }
+    </DetailedInfo.ItemValue>
+
+    <DetailedInfo.ItemLabel hint={ VALIDATOR_LOCATION_HINT } isLoading={ isLoading }>
+      Location
+    </DetailedInfo.ItemLabel>
+    <DetailedInfo.ItemValue columnGap={ 1 }>
+      <Skeleton loading={ isLoading }>{ formatLocation(data.location) ?? '-' }</Skeleton>
+      { data.location_epoch !== null && (
+        <>
+          <Skeleton loading={ isLoading } color="text.secondary">, in epoch</Skeleton>
+          <ShineriumEpochEntity number={ data.location_epoch } noIcon isLoading={ isLoading }/>
         </>
       ) }
     </DetailedInfo.ItemValue>

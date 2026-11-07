@@ -4,10 +4,13 @@ import React from 'react';
 
 import type { ShineriumValidator } from 'src/features/chain-variants/shinerium/types/api';
 
+import { VALIDATOR_LOCATION_HINT } from 'src/features/chain-variants/shinerium/utils/labels';
+
 import config from 'src/config';
 import useLazyRenderedList from 'src/shared/lists/useLazyRenderedList';
 
 import { TableBody, TableColumnHeader, TableHeaderSticky, TableRoot, TableRow } from 'src/toolkit/chakra/table';
+import { Hint } from 'src/toolkit/components/Hint/Hint';
 
 import ValidatorsShineriumTableItem from './ValidatorsShineriumTableItem';
 
@@ -21,13 +24,14 @@ const ValidatorsShineriumTable = ({ data, isLoading, resetKey }: Props) => {
   const { cutRef, renderedItemsNum } = useLazyRenderedList({ list: data, isEnabled: !isLoading, resetKey });
 
   return (
-    <TableRoot minW="800px">
+    <TableRoot minW="900px">
       <TableHeaderSticky top={ 0 }>
         <TableRow>
-          <TableColumnHeader width="30%">Validator</TableColumnHeader>
-          <TableColumnHeader width="16%">Status</TableColumnHeader>
-          <TableColumnHeader width="14%" isNumeric>Epochs</TableColumnHeader>
-          <TableColumnHeader width="12%" isNumeric>Signed</TableColumnHeader>
+          <TableColumnHeader width="24%">Validator</TableColumnHeader>
+          <TableColumnHeader width="13%">Status</TableColumnHeader>
+          <TableColumnHeader width="17%">Location<Hint label={ VALIDATOR_LOCATION_HINT } ml={ 1 }/></TableColumnHeader>
+          <TableColumnHeader width="9%" isNumeric>Epochs</TableColumnHeader>
+          <TableColumnHeader width="9%" isNumeric>Signed</TableColumnHeader>
           <TableColumnHeader width="14%" isNumeric>Rewards { config.chain.currency.symbol }</TableColumnHeader>
           <TableColumnHeader width="14%" isNumeric>Bond { config.chain.currency.symbol }</TableColumnHeader>
         </TableRow>

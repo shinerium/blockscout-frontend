@@ -68,6 +68,9 @@ export const SHINERIUM_EPOCH_DETAILED: ShineriumEpochDetailed = {
       pq_key_hash: '0xf985fb7c937d6d126f35ab9a07e2bb848ab90aa8760e1ee66cfe3640d383f3b1',
       location: { country: 'CA', region: 'Quebec', asn: 16276, source: 'declared' },
       signed: 2,
+      correlated: 0,
+      credited: 2,
+      slow: 0,
       removal: null,
       reward: '15219100281300000000',
     },
@@ -90,6 +93,8 @@ export const SHINERIUM_VALIDATOR: ShineriumValidator = {
   qcs: 574,
   rewards_total: '4383100000000000000000',
   rewards_count: 287,
+  location: { country: 'CA', region: 'Quebec', asn: 16276, source: 'declared' },
+  location_epoch: 287,
 };
 
 export const SHINERIUM_VALIDATOR_DETAILED: ShineriumValidatorDetailed = {
@@ -116,6 +121,9 @@ export const SHINERIUM_VALIDATOR_EPOCH: ShineriumValidatorEpoch = {
   ended_at: '2026-11-06T15:38:11.000000Z',
   signed: 2,
   qcs: 2,
+  correlated: 0,
+  credited: 2,
+  slow: 0,
   removal: null,
   reward: '15219100281300000000',
 };

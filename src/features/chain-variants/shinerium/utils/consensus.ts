@@ -4,6 +4,15 @@ import { capitalize } from 'es-toolkit';
 
 import type { ShineriumCertificate, ShineriumLocation, ShineriumRemoval } from '../types/api';
 
+import type { BadgeProps } from 'src/toolkit/chakra/badge';
+
+const TOO_SLOW_EPOCHS = 2;
+
+export interface ShineriumSlowLabel {
+  readonly text: string;
+  readonly color: BadgeProps['colorPalette'];
+}
+
 export const formatLocation = (location: ShineriumLocation | null): string | null => {
   if (!location) {
     return null;
@@ -25,6 +34,29 @@ export const getSignedShare = (signed: number | null, possible: number | null): 
 
 export const getEpochParticipation = (signed: number | null, qcs: number | null, membersCount: number): number | null => {
   return getSignedShare(signed, qcs === null ? null : qcs * membersCount);
+};
+
+export const formatCountOfQcs = (count: number | null, qcs: number | null): string => {
+  return count === null ? '-' : `${ count } / ${ qcs ?? '-' }`;
+};
+
+export const getCreditedDetails = (qcs: number | null, correlated: number | null): string | null => {
+  if (qcs === null || correlated === null) {
+    return null;
+  }
+
+  return `${ qcs } ${ qcs === 1 ? 'certificate' : 'certificates' } less ${ correlated } correlated ${ correlated === 1 ? 'miss' : 'misses' }`;
+};
+
+export const getSlowLabel = (slow: number | null): ShineriumSlowLabel | null => {
+  if (slow === null || slow === 0) {
+    return null;
+  }
+
+  return {
+    text: `${ slow } ${ slow === 1 ? 'epoch' : 'epochs' }`,
+    color: slow >= TOO_SLOW_EPOCHS ? 'orange' : 'yellow',
+  };
 };
 
 export const formatShare = (share: number | null): string => {

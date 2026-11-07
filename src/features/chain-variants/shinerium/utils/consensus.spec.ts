@@ -4,11 +4,14 @@ import { describe, expect, it } from 'vitest';
 
 import {
   formatBondStatus,
+  formatCountOfQcs,
   formatLocation,
   formatRemoval,
   formatShare,
+  getCreditedDetails,
   getEpochParticipation,
   getSignedShare,
+  getSlowLabel,
   isEpochGenesisCertificate,
   shortenIdentity,
 } from './consensus';
@@ -48,6 +51,44 @@ describe('getEpochParticipation', () => {
 
   it('is null while the epoch runs', () => {
     expect(getEpochParticipation(null, null, 7)).toBeNull();
+  });
+});
+
+describe('formatCountOfQcs', () => {
+  it('gives a count against the epoch\'s certificates', () => {
+    expect(formatCountOfQcs(17, 31)).toBe('17 / 31');
+    expect(formatCountOfQcs(0, 31)).toBe('0 / 31');
+  });
+
+  it('gives a dash for no count, and for certificates not known', () => {
+    expect(formatCountOfQcs(null, 31)).toBe('-');
+    expect(formatCountOfQcs(2, null)).toBe('2 / -');
+  });
+});
+
+describe('getCreditedDetails', () => {
+  it('names the certificates and the correlated misses taken from them', () => {
+    expect(getCreditedDetails(31, 14)).toBe('31 certificates less 14 correlated misses');
+    expect(getCreditedDetails(1, 1)).toBe('1 certificate less 1 correlated miss');
+    expect(getCreditedDetails(2, 0)).toBe('2 certificates less 0 correlated misses');
+  });
+
+  it('is null without the correlated misses or the certificates', () => {
+    expect(getCreditedDetails(31, null)).toBeNull();
+    expect(getCreditedDetails(null, 3)).toBeNull();
+  });
+});
+
+describe('getSlowLabel', () => {
+  it('counts the slow epochs, in orange from two, when the member leads no views', () => {
+    expect(getSlowLabel(1)).toEqual({ text: '1 epoch', color: 'yellow' });
+    expect(getSlowLabel(2)).toEqual({ text: '2 epochs', color: 'orange' });
+    expect(getSlowLabel(3)).toEqual({ text: '3 epochs', color: 'orange' });
+  });
+
+  it('is null for a member no epoch found slow, or one not known', () => {
+    expect(getSlowLabel(0)).toBeNull();
+    expect(getSlowLabel(null)).toBeNull();
   });
 });
 

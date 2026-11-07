@@ -8,7 +8,7 @@ import type { ShineriumValidator } from 'src/features/chain-variants/shinerium/t
 import AddressEntity from 'src/slices/address/components/entity/AddressEntity';
 
 import ShineriumValidatorEntity from 'src/features/chain-variants/shinerium/components/ShineriumValidatorEntity';
-import { formatBondStatus, formatShare, getSignedShare } from 'src/features/chain-variants/shinerium/utils/consensus';
+import { formatBondStatus, formatLocation, formatShare, getSignedShare } from 'src/features/chain-variants/shinerium/utils/consensus';
 
 import NativeCoinValue from 'src/shared/values/entity/NativeCoinValue';
 
@@ -35,6 +35,9 @@ const ValidatorsShineriumTableItem = ({ item, isLoading }: Props) => {
           { item.is_member && <Tag colorPalette="green" loading={ isLoading }>Committee</Tag> }
           { status && <Skeleton loading={ isLoading } display="inline-block">{ status }</Skeleton> }
         </HStack>
+      </TableCell>
+      <TableCell verticalAlign="middle">
+        <Skeleton loading={ isLoading } display="inline-block">{ formatLocation(item.location) ?? '-' }</Skeleton>
       </TableCell>
       <TableCell verticalAlign="middle" isNumeric>
         <Skeleton loading={ isLoading } display="inline-block">{ item.epochs }</Skeleton>

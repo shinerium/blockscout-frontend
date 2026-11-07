@@ -1,14 +1,18 @@
 // SPDX-License-Identifier: LicenseRef-Blockscout
 
+import { HStack } from '@chakra-ui/react';
 import React from 'react';
 
 import type { ShineriumValidatorEpoch } from 'src/features/chain-variants/shinerium/types/api';
 
 import ActionBar from 'src/shell/page/action-bar/ActionBar';
 
+import ShineriumCredited from 'src/features/chain-variants/shinerium/components/ShineriumCredited';
 import ShineriumEpochEntity from 'src/features/chain-variants/shinerium/components/ShineriumEpochEntity';
+import ShineriumSlowTag from 'src/features/chain-variants/shinerium/components/ShineriumSlowTag';
 import { SHINERIUM_VALIDATOR_EPOCH } from 'src/features/chain-variants/shinerium/stubs';
-import { formatRemoval } from 'src/features/chain-variants/shinerium/utils/consensus';
+import { formatCountOfQcs, formatRemoval } from 'src/features/chain-variants/shinerium/utils/consensus';
+import { CREDITED_HINT } from 'src/features/chain-variants/shinerium/utils/labels';
 
 import TimeWithTooltip from 'src/shared/date-and-time/TimeWithTooltip';
 import DataList from 'src/shared/lists/DataList';
@@ -28,6 +32,7 @@ import {
   TableRow,
 } from 'src/toolkit/chakra/table';
 import { Tag } from 'src/toolkit/chakra/tag';
+import { Hint } from 'src/toolkit/components/Hint/Hint';
 
 interface Props {
   readonly id: string;
@@ -42,16 +47,20 @@ interface ItemProps {
 const ValidatorShineriumEpochsItem = ({ item, isLoading }: ItemProps) => (
   <TableRow>
     <TableCell verticalAlign="middle">
-      <ShineriumEpochEntity number={ item.epoch_number } noIcon fontWeight={ 600 } isLoading={ isLoading }/>
+      <HStack gap={ 2 }>
+        <ShineriumEpochEntity number={ item.epoch_number } noIcon fontWeight={ 600 } isLoading={ isLoading }/>
+        <ShineriumSlowTag slow={ item.slow } isLoading={ isLoading }/>
+      </HStack>
       <TimeWithTooltip timestamp={ item.started_at } isLoading={ isLoading } color="text.secondary" mt={ 1 }/>
     </TableCell>
     <TableCell verticalAlign="middle" isNumeric>
       <Skeleton loading={ isLoading } display="inline-block">{ item.index }</Skeleton>
     </TableCell>
     <TableCell verticalAlign="middle" isNumeric>
-      <Skeleton loading={ isLoading } display="inline-block">
-        { item.signed === null ? '-' : `${ item.signed } / ${ item.qcs ?? '-' }` }
-      </Skeleton>
+      <Skeleton loading={ isLoading } display="inline-block">{ formatCountOfQcs(item.signed, item.qcs) }</Skeleton>
+    </TableCell>
+    <TableCell verticalAlign="middle" isNumeric>
+      <ShineriumCredited figures={ item } qcs={ item.qcs } isLoading={ isLoading }/>
     </TableCell>
     <TableCell verticalAlign="middle" isNumeric>
       { item.reward ? <NativeCoinValue amount={ item.reward } noSymbol loading={ isLoading }/> : '-' }
@@ -80,14 +89,15 @@ const ValidatorShineriumEpochs = ({ id, isEnabled }: Props) => {
 
   const content = data?.items ? (
     <TableContainerScrollable>
-      <TableRoot minW="700px">
+      <TableRoot minW="760px">
         <TableHeader>
           <TableRow>
-            <TableColumnHeader width="30%">Epoch</TableColumnHeader>
-            <TableColumnHeader width="12%" isNumeric>Seat</TableColumnHeader>
-            <TableColumnHeader width="18%" isNumeric>Signed</TableColumnHeader>
-            <TableColumnHeader width="20%" isNumeric>Reward</TableColumnHeader>
-            <TableColumnHeader width="20%">Left</TableColumnHeader>
+            <TableColumnHeader width="28%">Epoch</TableColumnHeader>
+            <TableColumnHeader width="9%" isNumeric>Seat</TableColumnHeader>
+            <TableColumnHeader width="14%" isNumeric>Signed</TableColumnHeader>
+            <TableColumnHeader width="15%" isNumeric>Credited<Hint label={ CREDITED_HINT } ml={ 1 }/></TableColumnHeader>
+            <TableColumnHeader width="18%" isNumeric>Reward</TableColumnHeader>
+            <TableColumnHeader width="16%">Left</TableColumnHeader>
           </TableRow>
         </TableHeader>
         <TableBody>

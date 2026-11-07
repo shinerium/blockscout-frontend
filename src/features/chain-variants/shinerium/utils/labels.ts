@@ -69,6 +69,15 @@ const PROPOSER_REWARD_TYPES: ReadonlySet<string> = new Set([ 'poq', 'ecosystem',
 export const EPOCH_QCS_HINT = 'The quorum certificates of the epoch\'s blocks before its carrier, each carried by the block after it: ' +
   'a quiet epoch of three blocks has two';
 
+export const CREDITED_HINT = 'The certificates the carrier pays the member for: the epoch\'s less its correlated misses, ' +
+  'a certificate it did not sign counting as many times as members of its autonomous system did not sign it, at most f + 1';
+
+export const SLOW_HINT = 'The consecutive epochs before this one that found the member slow, its votes reaching most leaders ' +
+  'only after they had proposed again. At two it leads no views and may give way to a candidate';
+
+export const VALIDATOR_LOCATION_HINT = 'Where the beacons placed the validator when it joined its latest committee, ' +
+  'or what the genesis declares: country, region and autonomous system';
+
 const unknownLabel = (text: string, hint: string): ShineriumLabel => ({ text, hint, color: 'gray' });
 
 export const getRewardTypeLabel = (rewardType: string | null): ShineriumLabel => {

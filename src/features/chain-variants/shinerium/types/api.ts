@@ -112,7 +112,13 @@ export interface ShineriumEpoch {
   readonly is_current: boolean;
 }
 
-export interface ShineriumEpochMember {
+export interface ShineriumRecordFigures {
+  readonly correlated: number | null;
+  readonly credited: number | null;
+  readonly slow: number | null;
+}
+
+export interface ShineriumEpochMember extends ShineriumRecordFigures {
   readonly index: number;
   readonly identity: string;
   readonly ed_address_hash: string;
@@ -159,6 +165,8 @@ export interface ShineriumValidator {
   readonly qcs: number | null;
   readonly rewards_total: string | null;
   readonly rewards_count: number;
+  readonly location: ShineriumLocation | null;
+  readonly location_epoch: number | null;
 }
 
 export interface ShineriumPenalty {
@@ -200,7 +208,7 @@ export interface ShineriumValidatorsResponse {
   readonly next_page_params: null;
 }
 
-export interface ShineriumValidatorEpoch {
+export interface ShineriumValidatorEpoch extends ShineriumRecordFigures {
   readonly epoch_number: number;
   readonly index: number;
   readonly started_at: string;
