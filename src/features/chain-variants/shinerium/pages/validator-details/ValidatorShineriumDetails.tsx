@@ -87,7 +87,7 @@ const ValidatorShineriumService = ({ data, isLoading }: Props) => (
 
 const ValidatorShineriumDetails = ({ data, isLoading }: Props) => {
   return (
-    <DetailedInfo.Container>
+    <DetailedInfo.Container templateColumns={{ base: 'minmax(0, 1fr)', lg: 'minmax(min-content, 200px) minmax(0, 1fr)' }}>
       <DetailedInfo.ItemLabel hint="The address of the validator's Ed25519 identity key" isLoading={ isLoading }>
         Identity address
       </DetailedInfo.ItemLabel>

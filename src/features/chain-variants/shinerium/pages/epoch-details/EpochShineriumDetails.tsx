@@ -29,7 +29,7 @@ const EpochShineriumDetails = ({ data, isLoading }: Props) => {
   const nextFirst = data.next_first === null ? undefined : data.members[data.next_first];
 
   return (
-    <DetailedInfo.Container>
+    <DetailedInfo.Container templateColumns={{ base: 'minmax(0, 1fr)', lg: 'minmax(min-content, 200px) minmax(0, 1fr)' }}>
       <DetailedInfo.ItemLabel hint="When the control block that starts the epoch was made" isLoading={ isLoading }>
         Started
       </DetailedInfo.ItemLabel>
