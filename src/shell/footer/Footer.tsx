@@ -16,6 +16,7 @@ import { CONTENT_MAX_WIDTH } from 'src/shell/layout/utils';
 
 import IndexingStatusInternalTxs from 'src/slices/chain/indexing-status/IndexingStatusInternalTxs';
 
+import { getShineriumFooterDescription } from 'src/features/chain-variants/shinerium/utils/footer';
 import NetworkAddToWallet from 'src/features/web3-wallet/components/NetworkAddToWallet';
 
 import config from 'src/config';
@@ -34,6 +35,8 @@ const MAX_LINKS_COLUMNS = 4;
 
 const FRONT_VERSION_URL = `https://github.com/blockscout/frontend/tree/${ config.shell.footer.frontendVersion }`;
 const FRONT_COMMIT_URL = `https://github.com/blockscout/frontend/commit/${ config.shell.footer.frontendCommit }`;
+
+const shineriumDescription = getShineriumFooterDescription();
 
 const Footer = () => {
 
@@ -138,22 +141,31 @@ const Footer = () => {
   const renderProjectInfo = React.useCallback((gridArea?: GridProps['gridArea']) => {
     const logoColor = { base: 'blue.600', _dark: 'white' };
 
+    const madeWith = (
+      <Flex columnGap={ 2 } textStyle="xs" alignItems="center">
+        <span>Made with</span>
+        <Link href="https://www.blockscout.com" external noIcon display="inline-flex" color={ logoColor } _hover={{ color: logoColor }}>
+          <SpriteIcon
+            name="networks/logo-placeholder"
+            width="80px"
+            height={ 4 }
+          />
+        </Link>
+      </Flex>
+    );
+
     return (
       <Box gridArea={ gridArea }>
-        <Flex columnGap={ 2 } textStyle="xs" alignItems="center">
-          <span>Made with</span>
-          <Link href="https://www.blockscout.com" external noIcon display="inline-flex" color={ logoColor } _hover={{ color: logoColor }}>
-            <SpriteIcon
-              name="networks/logo-placeholder"
-              width="80px"
-              height={ 4 }
-            />
-          </Link>
-        </Flex>
-        <Text mt={ 3 } fontSize="xs">
-          Scan, inspect, and analyze EVM based blockchains with Blockscout, a blockchain explorer for Ethereum networks.
-        </Text>
+        { shineriumDescription ? <Text textStyle="xs">{ shineriumDescription }</Text> : (
+          <>
+            { madeWith }
+            <Text mt={ 3 } fontSize="xs">
+              Scan, inspect, and analyze EVM based blockchains with Blockscout, a blockchain explorer for Ethereum networks.
+            </Text>
+          </>
+        ) }
         <VStack mt={ 6 } alignItems="start" textStyle="xs" gap={ 1 }>
+          { shineriumDescription && madeWith }
           <Flex flexDir={ onionDomain ? 'row' : 'column' } _empty={{ display: 'none' }} columnGap={ 6 } rowGap={ 1 }>
             { apiVersionUrl && (
               <Text>
