@@ -7,6 +7,7 @@ import NavigationMobile from 'src/shell/navigation/mobile/NavigationMobile';
 import NetworkLogo from 'src/slices/chain/logo/NetworkLogo';
 import TestnetBadge from 'src/slices/chain/TestnetBadge';
 
+import { getShineriumNavigationLogo } from 'src/features/chain-variants/shinerium/utils/navigation-logo';
 import RollupStageBadge from 'src/features/rollup/common/components/RollupStageBadge';
 
 import SpriteIcon from 'src/sprite/SpriteIcon';
@@ -18,6 +19,8 @@ import { useDisclosure } from 'src/toolkit/hooks/useDisclosure';
 interface Props {
   isMarketplaceAppPage?: boolean;
 }
+
+const shineriumLogo = getShineriumNavigationLogo();
 
 const Burger = ({ isMarketplaceAppPage }: Props) => {
   const { open, onOpen, onClose, onOpenChange } = useDisclosure();
@@ -43,7 +46,7 @@ const Burger = ({ isMarketplaceAppPage }: Props) => {
         <DrawerBody display="flex" flexDirection="column" overflowX="hidden" overflowY="auto">
           <TestnetBadge alignSelf="flex-start" mb={ 2 }/>
           <RollupStageBadge alignSelf="flex-start" mb={ 2 }/>
-          <NetworkLogo/>
+          <NetworkLogo imageWidth={ shineriumLogo?.drawerLogoWidth }/>
           <NavigationMobile onNavLinkClick={ onClose } isMarketplaceAppPage={ isMarketplaceAppPage }/>
         </DrawerBody>
       </DrawerContent>

@@ -52,10 +52,11 @@ const TopBarStats = () => {
   const hasSecondaryCoinPrice = data?.secondary_coin_price && config.chain.secondaryCoin.symbol && (hasNativeCoinPrice ? !isMobile : true);
   const gasPrices = discriminateDetailedPrices(data?.gas_prices);
   const hasGasInfo = gasPrices !== undefined && config.features.gasTracker.isEnabled && !isMobile;
+  const hasStats = Boolean(hasNativeCoinPrice || hasSecondaryCoinPrice || hasGasInfo);
 
   return (
     <>
-      { Boolean(config.shell.topBar.chainMenu.items) && <TextSeparator/> }
+      { Boolean(config.shell.topBar.chainMenu.items) && hasStats && <TextSeparator/> }
       <Flex
         alignItems="center"
         fontWeight={ 500 }

@@ -17,5 +17,6 @@ export interface FeaturedNetwork {
   group: NetworkGroup;
   icon?: string;
   isActive?: boolean;
+  isDisabled?: boolean;
   invertIconInDarkMode?: boolean;
 }

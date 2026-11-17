@@ -113,6 +113,7 @@ const featuredNetworkSchema: yup.ObjectSchema<FeaturedNetwork> = yup
     group: yup.string().oneOf(NETWORK_GROUPS).required(),
     icon: yup.string().test(urlTest),
     isActive: yup.boolean(),
+    isDisabled: yup.boolean(),
     invertIconInDarkMode: yup.boolean(),
   });
 

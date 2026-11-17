@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: LicenseRef-Blockscout
 
-import { Box, Text, chakra } from '@chakra-ui/react';
+import { Box, Flex, Text, chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { FeaturedNetwork } from './types';
@@ -15,7 +15,7 @@ interface Props extends FeaturedNetwork {
   isMobile?: boolean;
 }
 
-const ChainMenuLink = ({ title, icon, isActive: isActiveProp, isMobile, url, invertIconInDarkMode }: Props) => {
+const ChainMenuLink = ({ title, icon, isActive: isActiveProp, isDisabled, isMobile, url, invertIconInDarkMode }: Props) => {
   const darkModeFilter = { filter: 'brightness(0) invert(1)' };
   const style = useColorModeValue({}, invertIconInDarkMode ? darkModeFilter : {});
 
@@ -44,6 +44,30 @@ const ChainMenuLink = ({ title, icon, isActive: isActiveProp, isMobile, url, inv
     }
   })();
 
+  const content = (
+    <>
+      { iconEl }
+      <Text
+        marginLeft={ 2 }
+        color="inherit"
+        fontSize="sm"
+        lineHeight={ isMobile ? '20px' : '24px' }
+      >
+        { title }
+      </Text>
+    </>
+  );
+
+  if (isDisabled) {
+    return (
+      <Box as="li" listStyleType="none">
+        <Flex role="link" aria-disabled="true" px={ 2 } py="5px" alignItems="center" opacity={ 0.4 } cursor="not-allowed">
+          { content }
+        </Flex>
+      </Box>
+    );
+  }
+
   return (
     <Box as="li" listStyleType="none">
       <chakra.a
@@ -60,15 +84,7 @@ const ChainMenuLink = ({ title, icon, isActive: isActiveProp, isMobile, url, inv
         borderRadius="base"
         _hover={{ color: isActive ? 'text.primary' : 'hover' }}
       >
-        { iconEl }
-        <Text
-          marginLeft={ 2 }
-          color="inherit"
-          fontSize="sm"
-          lineHeight={ isMobile ? '20px' : '24px' }
-        >
-          { title }
-        </Text>
+        { content }
         { isActive && (
           <SpriteIcon
             name="check"

@@ -26,9 +26,10 @@ const LogoFallback = () => {
 
 type Props = {
   className?: string;
+  imageWidth?: string;
 };
 
-const NetworkLogo = ({ className }: Props) => {
+const NetworkLogo = ({ className, imageWidth }: Props) => {
 
   const logoSrc = useColorModeValue(config.chain.logo.default, config.chain.logo.dark || config.chain.logo.default);
 
@@ -39,8 +40,10 @@ const NetworkLogo = ({ className }: Props) => {
       aria-label="Link to main page"
     >
       <Image
-        h="24px"
-        skeletonWidth="120px"
+        w={ imageWidth }
+        h={ imageWidth ? 'auto' : '24px' }
+        skeletonWidth={ imageWidth ?? '120px' }
+        skeletonHeight="24px"
         src={ logoSrc }
         alt={ `${ config.chain.name } network logo` }
         fallback={ <LogoFallback/> }

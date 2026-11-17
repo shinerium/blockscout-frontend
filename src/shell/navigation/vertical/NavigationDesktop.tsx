@@ -10,6 +10,7 @@ import NetworkLogo from 'src/slices/chain/logo/NetworkLogo';
 import TestnetBadge from 'src/slices/chain/TestnetBadge';
 
 import useIsAuth from 'src/features/account/hooks/useIsAuth';
+import { getShineriumNavigationLogo } from 'src/features/chain-variants/shinerium/utils/navigation-logo';
 import NavLinkRewards from 'src/features/rewards/components/NavLinkRewards';
 import RollupStageBadge from 'src/features/rollup/common/components/RollupStageBadge';
 
@@ -20,6 +21,8 @@ import NavigationPromoBanner from '../promo-banner/NavigationPromoBanner';
 import useNavItems, { isGroupItem } from '../useNavItems';
 import NavLink from './NavLink';
 import NavLinkGroup from './NavLinkGroup';
+
+const shineriumLogo = getShineriumNavigationLogo();
 
 const NavigationDesktop = () => {
   const appProps = useAppContext();
@@ -82,19 +85,19 @@ const NavigationDesktop = () => {
         w="100%"
         pl={{ lg: isExpanded ? 3 : '15px', xl: isCollapsed ? '15px' : 3 }}
         pr={{ lg: isExpanded ? 0 : '15px', xl: isCollapsed ? '15px' : 0 }}
-        h={ 10 }
+        h={ shineriumLogo?.menuHeaderHeight ?? 10 }
         transitionProperty="padding"
         transitionDuration="normal"
         transitionTimingFunction="ease"
       >
         <Box display={{ base: 'none', lg: isCollapsed === false ? 'block' : 'none', xl: isCollapsed ? 'none' : 'block' }}>
-          <NetworkLogo/>
+          <NetworkLogo imageWidth={ shineriumLogo?.menuLogoWidth }/>
         </Box>
         <Box display={{ base: 'none', lg: isCollapsed === false ? 'none' : 'block', xl: isCollapsed ? 'block' : 'none' }}>
           <NetworkIcon/>
         </Box>
       </Box>
-      <Box as="nav" mt={ 6 } w="100%">
+      <Box as="nav" mt={ shineriumLogo?.menuNavMarginTop ?? 6 } w="100%">
         <VStack as="ul" gap="1" alignItems="flex-start">
           { mainNavItems.map((item) => {
             if (isGroupItem(item)) {

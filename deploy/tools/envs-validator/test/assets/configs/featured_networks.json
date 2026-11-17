@@ -14,6 +14,12 @@
 		"invertIconInDarkMode": true
 	},
 	{
+		"title": "POA Core",
+		"url": "https://blockscout.com/poa/core",
+		"group": "Mainnets",
+		"isDisabled": true
+	},
+	{
 		"title": "POA Sokol",
 		"url": "https://blockscout.com/poa/sokol",
 		"group": "Other",
