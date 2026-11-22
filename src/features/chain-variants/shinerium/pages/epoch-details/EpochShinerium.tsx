@@ -12,11 +12,13 @@ import BlockEntity from 'src/slices/block/components/entity/BlockEntity';
 
 import TextAd from 'src/features/ads/text/components/TextAd';
 import { SHINERIUM_EPOCH_DETAILED } from 'src/features/chain-variants/shinerium/stubs';
+import { formatJoinedSeal } from 'src/features/chain-variants/shinerium/utils/consensus';
 
 import throwOnResourceLoadError from 'src/shared/errors/throw-on-resource-load-error';
 import getQueryParamString from 'src/shared/router/get-query-param-string';
 
 import { Heading } from 'src/toolkit/chakra/heading';
+import { Skeleton } from 'src/toolkit/chakra/skeleton';
 import { Tag } from 'src/toolkit/chakra/tag';
 
 import EpochShineriumDetails from './EpochShineriumDetails';
@@ -68,7 +70,12 @@ const EpochShinerium = () => {
           <EpochShineriumMembers data={ data } isLoading={ isLoading }/>
           { data.joined && data.joined.length > 0 && (
             <>
-              <Heading level="3" mt={ 8 } mb={ 4 }>Joining at its end</Heading>
+              <Heading level="3" mt={ 8 } mb={ data.joined_seal ? 2 : 4 }>Joining at its end</Heading>
+              { data.joined_seal && (
+                <Skeleton loading={ isLoading } color="text.secondary" mb={ 4 } w="fit-content">
+                  { formatJoinedSeal(data.joined_seal) }
+                </Skeleton>
+              ) }
               <EpochShineriumJoined data={ data.joined } isLoading={ isLoading }/>
             </>
           ) }

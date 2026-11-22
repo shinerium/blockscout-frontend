@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest';
 import {
   formatBondStatus,
   formatCountOfQcs,
+  formatJoinedSeal,
   formatLocation,
   formatRemoval,
   formatShare,
@@ -132,5 +133,17 @@ describe('isEpochGenesisCertificate', () => {
   it('is no certificate of a later view, nor one whose view is not known', () => {
     expect(isEpochGenesisCertificate({ view: 1 })).toBe(false);
     expect(isEpochGenesisCertificate({ view: null })).toBe(false);
+  });
+});
+
+describe('formatJoinedSeal', () => {
+  it('names the PoRC generation of the seated candidate\'s proof, its version and tier', () => {
+    expect(formatJoinedSeal({ nonce: '0x0000000000030203', porc_generation: 3, porc_version: 2, tier: 'basic' }))
+      .toBe('Seated by a resource proof of PoRC generation 3 (version 2, basic tier)');
+  });
+
+  it('leaves out a tier the explorer does not know', () => {
+    expect(formatJoinedSeal({ nonce: '0x0000000000040209', porc_generation: 4, porc_version: 2, tier: null }))
+      .toBe('Seated by a resource proof of PoRC generation 4 (version 2)');
   });
 });

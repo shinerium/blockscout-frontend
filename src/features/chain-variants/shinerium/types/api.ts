@@ -108,8 +108,32 @@ export interface ShineriumEpoch {
   readonly signed: number | null;
   readonly absent_kept: number | null;
   readonly joined_count: number | null;
+  readonly joined_seal: ShineriumJoinedSeal | null;
   readonly removed_count: number | null;
   readonly is_current: boolean;
+}
+
+export interface ShineriumJoinedSeal {
+  readonly nonce: string;
+  readonly porc_generation: number;
+  readonly porc_version: number;
+  readonly tier: string | null;
+}
+
+export interface ShineriumEpochProgress {
+  readonly number: number;
+  readonly started_at: string;
+  readonly ended_at: string | null;
+  readonly carrier_block_number: number | null;
+  readonly latest_block: {
+    readonly number: number;
+    readonly timestamp: string;
+  };
+  readonly blocks: number;
+  readonly max_blocks: number;
+  readonly seconds: number;
+  readonly max_seconds: number;
+  readonly progress: number;
 }
 
 export interface ShineriumRecordFigures {

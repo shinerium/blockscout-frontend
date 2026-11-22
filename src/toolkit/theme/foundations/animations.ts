@@ -19,4 +19,12 @@ export const keyframes = {
       transform: 'translateX(100%)',
     },
   },
+  pulseOut: {
+    from: {
+      boxShadow: '0 0 0 6px currentColor',
+    },
+    to: {
+      boxShadow: '0 0 0 0 currentColor',
+    },
+  },
 };

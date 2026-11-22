@@ -11,6 +11,7 @@ import type {
 import type {
   ShineriumBlockConsensus,
   ShineriumEpochDetailed,
+  ShineriumEpochProgress,
   ShineriumEpochsResponse,
   ShineriumMetadata,
   ShineriumValidatorDetailed,
@@ -184,6 +185,9 @@ export const CORE_API_MISC_RESOURCES = {
     filterFields: [],
     paginated: true,
   },
+  shinerium_epoch_progress: {
+    path: '/api/v2/shinerium/epochs/current',
+  },
   shinerium_epoch: {
     path: '/api/v2/shinerium/epochs/:number',
     pathParams: [ 'number' as const ],
@@ -341,6 +345,7 @@ R extends 'core:validators_zilliqa' ? paths['/api/v2/validators/zilliqa']['get']
 R extends 'core:validator_zilliqa' ? paths['/api/v2/validators/zilliqa/{bls_public_key}']['get'] :
 R extends 'core:epochs_celo' ? paths['/api/v2/celo/epochs']['get'] :
 R extends 'core:shinerium_epochs' ? ShineriumEpochsResponse :
+R extends 'core:shinerium_epoch_progress' ? ShineriumEpochProgress :
 R extends 'core:shinerium_epoch' ? ShineriumEpochDetailed :
 R extends 'core:shinerium_validators' ? ShineriumValidatorsResponse :
 R extends 'core:shinerium_validator' ? ShineriumValidatorDetailed :

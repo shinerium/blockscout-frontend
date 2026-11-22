@@ -286,6 +286,7 @@ const colors = {
   reddit: { value: '#FF4500' },
   celo: { value: '#FCFF52' },
   clusters: { value: '#DE6061' },
+  shinerium: { value: '#FFB80F' },
 
   // THEME COLORS
   theme: defaultsDeep(config.shell.topBar.colorTheme.overrides, DEFAULT_THEME_COLORS),

@@ -2,7 +2,7 @@
 
 import { capitalize } from 'es-toolkit';
 
-import type { ShineriumCertificate, ShineriumLocation, ShineriumRemoval } from '../types/api';
+import type { ShineriumCertificate, ShineriumJoinedSeal, ShineriumLocation, ShineriumRemoval } from '../types/api';
 
 import type { BadgeProps } from 'src/toolkit/chakra/badge';
 
@@ -82,4 +82,9 @@ export const isEpochGenesisCertificate = (certificate: Pick<ShineriumCertificate
 
 export const shortenIdentity = (identity: string): string => {
   return `${ identity.slice(0, 10) }…${ identity.slice(-8) }`;
+};
+
+export const formatJoinedSeal = (seal: ShineriumJoinedSeal): string => {
+  const tier = seal.tier ? `, ${ seal.tier } tier` : '';
+  return `Seated by a resource proof of PoRC generation ${ seal.porc_generation } (version ${ seal.porc_version }${ tier })`;
 };

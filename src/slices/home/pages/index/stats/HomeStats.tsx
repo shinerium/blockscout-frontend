@@ -4,6 +4,7 @@ import React from 'react';
 
 import { isHomeStatsItemEnabled, sortHomeStatsItems } from 'src/slices/home/utils/stats';
 
+import config from 'src/config';
 import StatsContainer from 'src/shared/stats/StatsContainer';
 
 import HomeStatsAverageBlockTime from './widgets/HomeStatsAverageBlockTime';
@@ -13,9 +14,12 @@ import HomeStatsGasTracker from './widgets/HomeStatsGasTracker';
 import HomeStatsLatestBatch from './widgets/HomeStatsLatestBatch';
 import HomeStatsLatestBlock from './widgets/HomeStatsLatestBlock';
 import HomeStatsLatestL1StateBatch from './widgets/HomeStatsLatestL1StateBatch';
+import HomeStatsShineriumEpoch from './widgets/HomeStatsShineriumEpoch';
 import HomeStatsTotalAddresses from './widgets/HomeStatsTotalAddresses';
 import HomeStatsTotalOperationalTxs from './widgets/HomeStatsTotalOperationalTxs';
 import HomeStatsTotalTxs from './widgets/HomeStatsTotalTxs';
+
+const shineriumFeature = config.features.shinerium;
 
 const COLUMNS_NUM = {
   desktop: 2,
@@ -63,7 +67,7 @@ const HomeStats = () => {
       },
       {
         id: 'current_epoch' as const,
-        component: <HomeStatsCurrentEpoch/>,
+        component: shineriumFeature.isEnabled ? <HomeStatsShineriumEpoch/> : <HomeStatsCurrentEpoch/>,
       },
     ]
       .filter(Boolean)

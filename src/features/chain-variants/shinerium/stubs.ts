@@ -5,6 +5,7 @@ import type {
   ShineriumBlockConsensus,
   ShineriumEpoch,
   ShineriumEpochDetailed,
+  ShineriumEpochProgress,
   ShineriumMetadata,
   ShineriumValidator,
   ShineriumValidatorDetailed,
@@ -52,8 +53,22 @@ export const SHINERIUM_EPOCH: ShineriumEpoch = {
   signed: 14,
   absent_kept: 0,
   joined_count: 0,
+  joined_seal: null,
   removed_count: 0,
   is_current: false,
+};
+
+export const SHINERIUM_EPOCH_PROGRESS: ShineriumEpochProgress = {
+  number: 2786,
+  started_at: '2026-11-22T19:51:13.000000Z',
+  ended_at: null,
+  carrier_block_number: 171097,
+  latest_block: { number: 171300, timestamp: '2026-11-22T19:52:48.000000Z' },
+  blocks: 203,
+  max_blocks: 512,
+  seconds: 95,
+  max_seconds: 600,
+  progress: 0.3965,
 };
 
 export const SHINERIUM_EPOCH_DETAILED: ShineriumEpochDetailed = {
