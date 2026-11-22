@@ -49,5 +49,6 @@ export const disputeGames = factory([ guards.disputeGames ]);
 export const tac = factory([ guards.tac ]);
 export const celo = factory([ guards.celo ]);
 export const epochs = factory([ guards.epochs ]);
+export const shineriumMetadata = factory([ guards.shinerium ]);
 export const interopMessages = factory([ guards.interopMessages ]);
 export const multichain = factory([ guards.multichain ]);

@@ -563,6 +563,16 @@ export const TEMPLATE_MAP: Record<Route['pathname'], RouteTemplateRecord> = {
     },
     og: OG_ROOT_PAGE,
   },
+  '/metadata/[hash]': {
+    metadata: {
+      title: {
+        'default': '%chain_name% metadata %hash% details',
+      },
+      description: {
+        'default': 'View the %chain_name% transaction metadata that a hash commits to, and the transactions that carry it.',
+      },
+    },
+  },
   '/epochs/[number]': {
     metadata: {
       title: {

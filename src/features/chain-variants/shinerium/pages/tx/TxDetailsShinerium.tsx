@@ -16,6 +16,7 @@ import { Skeleton } from 'src/toolkit/chakra/skeleton';
 import { Tooltip } from 'src/toolkit/chakra/tooltip';
 import { Truncate } from 'src/toolkit/components/truncation/Truncate';
 
+import ShineriumMetadataEntity from '../../components/ShineriumMetadataEntity';
 import { getContractLabel, getFormLabel, getOperationDetails, getOperationName } from '../../utils/labels';
 import { getShineriumTransaction } from '../../utils/shinerium-data';
 
@@ -72,16 +73,13 @@ const TxDetailsShineriumContent = ({ data, isLoading }: ContentProps) => {
       { data.metadata_hash && (
         <>
           <DetailedInfo.ItemLabel
-            hint="The hash of the metadata an extended transaction carries"
+            hint="The hash of the metadata an extended transaction carries; its page shows the metadata"
             isLoading={ isLoading }
           >
             Metadata hash
           </DetailedInfo.ItemLabel>
           <DetailedInfo.ItemValue flexWrap="nowrap">
-            <Box overflow="hidden">
-              <Truncate value={ data.metadata_hash } loading={ isLoading }/>
-            </Box>
-            <CopyToClipboard text={ data.metadata_hash } isLoading={ isLoading }/>
+            <ShineriumMetadataEntity hash={ data.metadata_hash } isLoading={ isLoading } noIcon/>
           </DetailedInfo.ItemValue>
         </>
       ) }

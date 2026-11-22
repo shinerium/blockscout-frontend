@@ -324,6 +324,14 @@ export const epochs: Guard = (chainConfig: typeof config) => async() => {
   }
 };
 
+export const shinerium: Guard = (chainConfig: typeof config) => async() => {
+  if (!chainConfig.features.shinerium.isEnabled) {
+    return {
+      notFound: true,
+    };
+  }
+};
+
 export const interopMessages: Guard = (chainConfig: typeof config) => async() => {
   const rollupFeature = chainConfig.features.rollup;
   if (!rollupFeature.isEnabled || !rollupFeature.interopEnabled) {

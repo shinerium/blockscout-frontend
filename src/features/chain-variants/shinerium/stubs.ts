@@ -5,6 +5,7 @@ import type {
   ShineriumBlockConsensus,
   ShineriumEpoch,
   ShineriumEpochDetailed,
+  ShineriumMetadata,
   ShineriumValidator,
   ShineriumValidatorDetailed,
   ShineriumValidatorEpoch,
@@ -133,4 +134,29 @@ export const SHINERIUM_BLOCK_CONSENSUS: ShineriumBlockConsensus = {
   view: 4106,
   justify: null,
   certificate: null,
+};
+
+export const SHINERIUM_METADATA: ShineriumMetadata = {
+  metadata_hash: '0x37e7dbb1f631d894bd75930267f12765298ead5e3db586823fee2867a403efbe',
+  transactions_count: 1,
+  first_transaction: {
+    hash: '0xd30d0a2f942cf8b5323f4e80cad0f959738cf3218e9b9340c06a74b5104c5ed5',
+    block_number: 144359,
+    timestamp: '2026-11-22T14:04:51.000000Z',
+  },
+  read_from_node: true,
+  metadata: {
+    ipfs: 'Qm7HvQPGYim878Ykzg94cEgw4T8SCh1M5YtteqxwT3i2yv',
+    url: 'https://docs.example.org/buvjnn/24c17771903c3351',
+    note: 'Delivery of order 186742',
+    device_id: 'c7352bc3-3901-424e-836e-9b831e7fc0e7',
+    server: 'https://erp.example.org/r2',
+    off_chain_key: 'order-186742',
+    location: null,
+    origin_app: null,
+    source_system: null,
+  },
+  identity: null,
+  security: null,
+  iso20022: null,
 };

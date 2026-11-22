@@ -12,6 +12,7 @@ import type {
   ShineriumBlockConsensus,
   ShineriumEpochDetailed,
   ShineriumEpochsResponse,
+  ShineriumMetadata,
   ShineriumValidatorDetailed,
   ShineriumValidatorEpochsResponse,
   ShineriumValidatorsResponse,
@@ -206,6 +207,16 @@ export const CORE_API_MISC_RESOURCES = {
     path: '/api/v2/shinerium/blocks/:height_or_hash/consensus',
     pathParams: [ 'height_or_hash' as const ],
   },
+  shinerium_metadata: {
+    path: '/api/v2/shinerium/metadata/:hash',
+    pathParams: [ 'hash' as const ],
+  },
+  shinerium_metadata_txs: {
+    path: '/api/v2/shinerium/metadata/:hash/transactions',
+    pathParams: [ 'hash' as const ],
+    filterFields: [],
+    paginated: true,
+  },
 
   // BLOBS
   blob: {
@@ -335,6 +346,9 @@ R extends 'core:shinerium_validators' ? ShineriumValidatorsResponse :
 R extends 'core:shinerium_validator' ? ShineriumValidatorDetailed :
 R extends 'core:shinerium_validator_epochs' ? ShineriumValidatorEpochsResponse :
 R extends 'core:shinerium_block_consensus' ? ShineriumBlockConsensus :
+R extends 'core:shinerium_metadata' ? ShineriumMetadata :
+// The backend lists them as a block's transactions are listed.
+R extends 'core:shinerium_metadata_txs' ? paths['/api/v2/blocks/{block_hash_or_number_param}/transactions']['get'] :
 R extends 'core:epoch_celo' ? paths['/api/v2/celo/epochs/{number}']['get'] :
 R extends 'core:epoch_celo_election_rewards' ? paths['/api/v2/celo/epochs/{number}/election-rewards/{type}']['get'] :
 R extends 'core:user_ops' ? paths['/api/v2/proxy/account-abstraction/operations']['get'] :

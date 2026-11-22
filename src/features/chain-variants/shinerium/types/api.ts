@@ -249,3 +249,54 @@ export interface ShineriumBlockConsensus {
   readonly justify: ShineriumCertificate | null;
   readonly certificate: ShineriumCertificate | null;
 }
+
+export interface ShineriumMetadataReferences {
+  readonly ipfs: string | null;
+  readonly url: string | null;
+  readonly note: string | null;
+  readonly device_id: string | null;
+  readonly server: string | null;
+  readonly off_chain_key: string | null;
+  readonly location: string | null;
+  readonly origin_app: string | null;
+  readonly source_system: string | null;
+}
+
+export interface ShineriumMetadataIdentity {
+  readonly type: string | null;
+  readonly did: string | null;
+  readonly vc: string | null;
+  readonly biometric_hash: string | null;
+  readonly id_proof_cid: string | null;
+}
+
+export interface ShineriumMetadataSecurity {
+  readonly hash_proof: string | null;
+  readonly pub_key_proof: string | null;
+  readonly encryption_key: string | null;
+  readonly verification_key: string | null;
+  readonly attestation: string | null;
+}
+
+export interface ShineriumMetadataIso20022 {
+  readonly type: string | null;
+  readonly tx_type: string | null;
+  readonly msg_id: string | null;
+  readonly reference: string | null;
+  readonly creditor_hash: string | null;
+}
+
+export interface ShineriumMetadata {
+  readonly metadata_hash: string;
+  readonly transactions_count: number;
+  readonly first_transaction: {
+    readonly hash: string;
+    readonly block_number: number | null;
+    readonly timestamp: string | null;
+  };
+  readonly read_from_node: boolean;
+  readonly metadata: ShineriumMetadataReferences | null;
+  readonly identity: ShineriumMetadataIdentity | null;
+  readonly security: ShineriumMetadataSecurity | null;
+  readonly iso20022: ShineriumMetadataIso20022 | null;
+}
