@@ -27,7 +27,14 @@ const MetadataShineriumValue = ({ field, isLoading }: ValueProps) => {
   switch (field.kind) {
     case 'link':
       return (
-        <Link href={ field.value } external rel="noopener noreferrer nofollow ugc" loading={ isLoading } wordBreak="break-all">
+        <Link
+          href={ field.value }
+          external
+          rel="noopener noreferrer nofollow ugc"
+          loading={ isLoading }
+          display="inline"
+          wordBreak="break-all"
+        >
           { field.value }
         </Link>
       );
@@ -65,7 +72,10 @@ const MetadataShineriumPart = ({ section, isLoading }: Props) => {
             <DetailedInfo.ItemLabel hint={ field.hint } isLoading={ isLoading }>
               { field.label }
             </DetailedInfo.ItemLabel>
-            <DetailedInfo.ItemValue flexWrap={ field.kind === 'hash' ? 'nowrap' : undefined }>
+            <DetailedInfo.ItemValue
+              flexWrap={ field.kind === 'hash' ? 'nowrap' : undefined }
+              whiteSpace={ field.kind === 'hash' ? undefined : 'normal' }
+            >
               <MetadataShineriumValue field={ field } isLoading={ isLoading }/>
             </DetailedInfo.ItemValue>
           </React.Fragment>

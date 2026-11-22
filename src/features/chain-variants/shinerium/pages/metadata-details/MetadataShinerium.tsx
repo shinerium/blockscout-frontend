@@ -61,7 +61,7 @@ const MetadataShinerium = () => {
           { sections.map((section) => <MetadataShineriumPart key={ section.key } section={ section } isLoading={ isLoading }/>) }
         </>
       ) }
-      <Heading level="3" mt={ 8 } mb={ 4 }>Transactions</Heading>
+      <Heading level="3" mt={ 8 } mb={ 6 }>Transactions</Heading>
       <TxsWithFrontendSorting query={ txsQuery }/>
     </>
   );
