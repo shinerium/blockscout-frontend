@@ -125,6 +125,7 @@ export interface ShineriumEpochProgress {
   readonly started_at: string;
   readonly ended_at: string | null;
   readonly carrier_block_number: number | null;
+  readonly is_stored: boolean;
   readonly latest_block: {
     readonly number: number;
     readonly timestamp: string;

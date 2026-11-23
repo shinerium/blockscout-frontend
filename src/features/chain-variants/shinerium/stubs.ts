@@ -63,6 +63,7 @@ export const SHINERIUM_EPOCH_PROGRESS: ShineriumEpochProgress = {
   started_at: '2026-11-22T19:51:13.000000Z',
   ended_at: null,
   carrier_block_number: 171097,
+  is_stored: true,
   latest_block: { number: 171300, timestamp: '2026-11-22T19:52:48.000000Z' },
   blocks: 203,
   max_blocks: 512,

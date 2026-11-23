@@ -46,7 +46,7 @@ const HomeStatsShineriumEpoch = () => {
             <ShineriumEpochProgress progress={ data.progress } flexGrow={ 1 } minW={{ base: '132px', lg: '168px' }}/>
           </Flex>
         ) }
-        href={{ pathname: '/epochs/[number]', query: { number: String(data.number) } }}
+        href={ data.is_stored ? { pathname: '/epochs/[number]', query: { number: String(data.number) } } : { pathname: '/epochs' } }
         isLoading={ query.isPlaceholderData }
       />
     </Tooltip>
